@@ -2,8 +2,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { handleNumericInput } from '../../utils/input-numeric';
 import { NumericFormat } from 'react-number-format';
+import { useNavigate } from 'react-router-dom';
 
 export const CreateForm = () => {
+   const navigate = useNavigate()
+
    const initialFormData = {
       no_faktur: '',
       nama_barang: '',
@@ -31,7 +34,12 @@ export const CreateForm = () => {
 
       try {
          const response = await axios.post('http://127.0.0.1:3000/api/v1/create/faktur', formData);
-         console.log('API Response:', response.data);
+         if (response.data.status_code === 201) {
+            setFormData(initialFormData);
+            navigate('/');
+         } else {
+            console.log('Unexpected status code:', response);
+         }
       } catch (error) {
          console.error('API Error:', error);
       }

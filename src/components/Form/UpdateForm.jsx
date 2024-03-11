@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { handleNumericInput } from '../../utils/input-numeric';
 import { NumericFormat } from 'react-number-format';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export const UpdateForm = () => {
 
    const { id } = useParams()
+   const navigate = useNavigate()
 
    const [values, setValues] = useState({
       id: id,
@@ -48,7 +49,7 @@ export const UpdateForm = () => {
       axios.put(apiUrl, values)
          .then(response => {
             if (response.status === 200) {
-               alert(response.data.message);
+               navigate('/')
             }
          })
          .catch(error => {
