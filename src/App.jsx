@@ -1,5 +1,6 @@
 import { MainTable } from "./components/Table/MainTable";
-import { MainForm } from "./components/Form/MainForm";
+import { CreateForm } from "./components/Form/CreateForm";
+import { UpdateForm } from "./components/Form/UpdateForm";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {
@@ -8,7 +9,8 @@ const App = () => {
       <div className="container m-auto py-[3rem]">
         <Router>
           <Routes>
-            <Route path="/form" element={<MainForm />} />
+            <Route path="/form/create" element={<CreateForm />} />
+            <Route path="/form/update/:id" element={<UpdateForm />} />
             <Route path="/" element={<MainTable />} />
           </Routes>
         </Router>

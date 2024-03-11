@@ -1,24 +1,48 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { formatToIDR } from '../../utils/format-idr';
+import { useNavigate } from 'react-router-dom';
 
 export const TableBody = () => {
+   const navigate = useNavigate();
    const [data, setData] = useState([]);
+   const [totalHarga, setTotalHarga] = useState(0);
+
+   const fetchData = async () => {
+      try {
+         const response = await axios.get('http://127.0.0.1:3000/api/v1/get/fakturs');
+         setData(response.data.data.data_faktur);
+         setTotalHarga(response.data.data.total_harga);
+
+      } catch (error) {
+         console.error('Error fetching data:', error);
+      }
+   };
 
    useEffect(() => {
-      // Fetch data from the API
-      const fetchData = async () => {
-         try {
-            const response = await axios.get('http://127.0.0.1:3000/api/v1/get/fakturs');
-            setData(response.data.data.data_faktur);
-
-         } catch (error) {
-            console.error('Error fetching data:', error);
-         }
-      };
-
       fetchData();
    }, []);
+
+   const handleRemove = async (id) => {
+      try {
+         await axios.delete(`http://127.0.0.1:3000/api/v1/delete/faktur/${id}`);
+
+         const response = await axios.get('http://127.0.0.1:3000/api/v1/get/fakturs');
+         setData((prevData) => prevData.filter((item) => item.id !== id));
+         setTotalHarga(response.data.data.total_harga);
+
+      } catch (error) {
+         console.error('Error deleting data:', error);
+      }
+   };
+
+   const handleUpdate = (id) => {
+      axios.get(`http://localhost:3000/api/v1/get/faktur/${id}`)
+         .then(response => {
+            navigate(`/form/update/${id}`);
+         })
+         .catch(error => console.error('Error fetching user data for update:', error));
+   };
 
    return (
       <>
@@ -34,10 +58,14 @@ export const TableBody = () => {
                   <td className="px-6 py-4">{item.phone}</td>
                   <td className="px-6 py-4">{item.tgl_faktur}</td>
                   <td className="flex items-center px-6 py-4">
-                     <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                     <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        onClick={() => handleUpdate(item.id)}>
                         Edit
                      </a>
-                     <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
+                     <a href="#"
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                        onClick={() => handleRemove(item.id)}
+                     >
                         Remove
                      </a>
                   </td>
