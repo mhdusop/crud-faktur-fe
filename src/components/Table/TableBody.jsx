@@ -10,7 +10,7 @@ export const TableBody = () => {
 
    const fetchData = async () => {
       try {
-         const response = await axios.get('http://127.0.0.1:3000/api/v1/get/fakturs');
+         const response = await axios.get('https://backend-tes-mhdusop.vercel.app/api/v1/get/fakturs');
          setData(response.data.data.data_faktur);
          setTotalHarga(response.data.data.total_harga);
 
@@ -25,9 +25,9 @@ export const TableBody = () => {
 
    const handleRemove = async (id) => {
       try {
-         await axios.delete(`http://127.0.0.1:3000/api/v1/delete/faktur/${id}`);
+         await axios.delete(`https://backend-tes-mhdusop.vercel.app/api/v1/delete/faktur/${id}`);
 
-         const response = await axios.get('http://127.0.0.1:3000/api/v1/get/fakturs');
+         const response = await axios.get('https://backend-tes-mhdusop.vercel.app/api/v1/get/fakturs');
          setData((prevData) => prevData.filter((item) => item.id !== id));
          setTotalHarga(response.data.data.total_harga);
 
@@ -37,7 +37,7 @@ export const TableBody = () => {
    };
 
    const handleUpdate = (id) => {
-      axios.get(`http://localhost:3000/api/v1/get/faktur/${id}`)
+      axios.get(`https://backend-tes-mhdusop.vercel.app//api/v1/get/faktur/${id}`)
          .then(response => {
             navigate(`/form/update/${id}`);
          })

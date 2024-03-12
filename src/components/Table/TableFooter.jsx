@@ -7,7 +7,7 @@ export const TableFooter = () => {
 
    const fetchData = async () => {
       try {
-         const response = await axios.get('http://127.0.0.1:3000/api/v1/get/fakturs');
+         const response = await axios.get('https://backend-tes-mhdusop.vercel.app/api/v1/get/fakturs');
          setTotalHarga(response.data.data.total_harga);
       } catch (error) {
          console.error('Error fetching data:', error);

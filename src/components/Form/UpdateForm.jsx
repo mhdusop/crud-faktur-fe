@@ -23,7 +23,7 @@ export const UpdateForm = () => {
 
    useEffect(() => {
       if (id) {
-         axios.get(`http://localhost:3000/api/v1/get/faktur/${id}`)
+         axios.get(`backend-tes-mhdusop.vercel.app/api/v1/get/faktur/${id}`)
             .then(response => {
                console.log(response.data.data);
                setValues({
@@ -44,7 +44,7 @@ export const UpdateForm = () => {
 
    const handleSubmit = (e) => {
       e.preventDefault()
-      const apiUrl = `http://127.0.0.1:3000/api/v1/update/faktur/${id}`;
+      const apiUrl = `https://backend-tes-mhdusop.vercel.app/api/v1/update/faktur/${id}`;
 
       axios.put(apiUrl, values)
          .then(response => {
