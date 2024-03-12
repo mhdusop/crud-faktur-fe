@@ -23,7 +23,7 @@ export const UpdateForm = () => {
 
    useEffect(() => {
       if (id) {
-         axios.get(`backend-tes-mhdusop.vercel.app/api/v1/get/faktur/${id}`)
+         axios.get(`https://backend-tes-mhdusop.vercel.app/api/v1/get/faktur/${id}`)
             .then(response => {
                console.log(response.data.data);
                setValues({
