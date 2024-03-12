@@ -33,7 +33,7 @@ export const CreateForm = () => {
       e.preventDefault();
 
       try {
-         const response = await axios.post('backend-tes-mhdusop.vercel.app/api/v1/create/faktur', formData);
+         const response = await axios.post('https://backend-tes-mhdusop.vercel.app/api/v1/create/faktur', formData);
          if (response.data.status_code === 201) {
             setFormData(initialFormData);
             navigate('/');
