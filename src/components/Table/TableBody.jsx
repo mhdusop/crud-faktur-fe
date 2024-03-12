@@ -37,7 +37,7 @@ export const TableBody = () => {
    };
 
    const handleUpdate = (id) => {
-      axios.get(`https://backend-tes-mhdusop.vercel.app//api/v1/get/faktur/${id}`)
+      axios.get(`https://backend-tes-mhdusop.vercel.app/api/v1/get/faktur/${id}`)
          .then(response => {
             navigate(`/form/update/${id}`);
          })
